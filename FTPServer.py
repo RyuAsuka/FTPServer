@@ -6,7 +6,7 @@ from conf import setting
 import logger
 
 
-SERVER_IP = '192.168.0.177'
+SERVER_IP = '0.0.0.0'
 SERVER_PORT = 2121
 
 
@@ -25,7 +25,7 @@ def get_user(user_file):
 
 def ftp_server():
     authorizer = DummyAuthorizer()
-    user_list = get_user('conf\\user.conf')
+    user_list = get_user('conf/user.conf')
     for user in user_list:
         name, password, permit, homedir = user
         try:
@@ -34,7 +34,7 @@ def ftp_server():
             print(e)
 
     if setting.enable_anonymous == 'on':
-        authorizer.add_anonymous('D:\\Home\\')
+        authorizer.add_anonymous('/home/')
 
     dtp_handler = ThrottledDTPHandler
     dtp_handler.read_limit = setting.max_download
